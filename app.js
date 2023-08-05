@@ -1,17 +1,47 @@
-// Identifiquen que variables deben ser constantes (const) y que otras variables
-// deben ser (let)
-let nombre = 'Juan';
-let instituto = 'IDAT';
-let edad = 19;
-let nombreDeMascota = 'Scooby';
-let ciudad = 'Lima';
+function obtenerEdad(fecha = new Date()) {
+	const fechaDeHoy = new Date();
+	const fechaDeNacimiento = new Date(fecha);
+
+	let edad = fechaDeHoy.getFullYear() - fechaDeNacimiento.getFullYear();
+	const diferenciaMeses = fechaDeHoy.getMonth() - fechaDeNacimiento.getMonth();
+
+	if (
+		diferenciaMeses < 0 ||
+		(diferenciaMeses === 0 &&
+			fechaDeHoy.getDate() < fechaDeNacimiento.getDate())
+	) {
+		edad--;
+	}
+
+	return edad;
+}
+
+let persona = {
+	nombre: 'Juan',
+	apellidos: 'Perez Chacón',
+	dni: '76543218',
+	instituto: 'IDAT',
+	fechaDeNacimiento: new Date('11/29/2001'),
+	tieneDNIElectronico: false,
+	mascotas: ['Scooby', 'Pelusa', 'Pepe'],
+	ciudad: 'Lima',
+	codigoPostal: null,
+};
 
 console.log(
-	'Hola Mundo soy ' +
-		nombre +
-		' y estoy estudiando en ' +
-		instituto +
-		' y tengo ' +
-		edad +
-		' años'
+	'Hola, soy',
+	persona.nombre,
+	persona.apellidos,
+	'actualmente estoy estudiando en',
+	persona.instituto
 );
+
+console.log('Nací en el', persona.fechaDeNacimiento.getFullYear());
+
+for (const mascota of persona.mascotas) {
+	console.log(mascota);
+}
+
+persona.edad = obtenerEdad(persona.fechaDeNacimiento);
+
+console.log(persona.edad);
